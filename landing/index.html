@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dock. — The Multi-Tab Companion & Snippet Engine by Nitytec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #000000;
+      --bg-card: #0a0a0a;
+      --bg-surface: #111111;
+      --border: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(255, 255, 255, 0.28);
+      --text: #ffffff;
+      --text-dim: #a3a3a3;
+      --text-muted: #666666;
+      --font-serif: 'Bodoni Moda', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Top Bar ───────────────────────────────────────────────────────────── */
+    header {
+      height: 64px;
+      padding: 0 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+
+    .domain-tag {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ffffff;
+    }
+
+    .cta-btn {
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      background: #e0e0e0;
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+    }
+
+    /* ─── Main Deck Viewport ─────────────────────────────────────────────────── */
+    main {
+      flex: 1;
+      padding: 24px 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    .deck-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .deck-card:hover {
+      border-color: var(--border-strong);
+      background: #0d0d0d;
+      transform: translateY(-2px);
+    }
+
+    .card-top {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.4px;
+    }
+
+    .card-problem {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      border-left: 2px solid var(--border-strong);
+      padding-left: 10px;
+      margin-top: 4px;
+    }
+
+    .card-problem strong {
+      color: #ffffff;
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    /* ─── Card Interactive Visual Panels ───────────────────────────────────── */
+    .card-visual {
+      background: #000000;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 170px;
+      justify-content: center;
+    }
+
+    /* Panel 1: Floating Dock Demo */
+    .floating-window-demo {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .f-header {
+      background: #1c1c1c;
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #aaa;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .f-body {
+      padding: 10px;
+      font-size: 11.5px;
+      color: #ddd;
+      line-height: 1.4;
+    }
+
+    /* Panel 2: Snippet Demo */
+    .snippet-preview-box {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .type-cursor {
+      display: inline-block;
+      width: 6px;
+      height: 14px;
+      background: #ffffff;
+      vertical-align: middle;
+      animation: blink 1s infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    .tag-highlight {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Panel 3: AI Target Badges */
+    .ai-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ai-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ai-arrow {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────────────────── */
+    footer {
+      height: 48px;
+      padding: 0 36px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .footer-signature strong {
+      font-family: var(--font-serif);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .badge-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-group">
+      <span class="logo">Dock.</span>
+      <span class="domain-tag"><span class="dot"></span>dock.nitytec.app</span>
+    </div>
+    <div>
+      <a href="https://chrome.google.com/webstore" class="cta-btn">Add to Chrome</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Deck 1: Companions -->
+    <div class="deck-card">
+      <div class="card-top">
+        <span class="card-num">01 / DOCK COMPANIONS</span>
+        <h2 class="card-title">Stop switching tabs to copy-paste.</h2>
+        <div class="card-problem">
+          <strong>The Problem</strong>
+          Flipping tabs back and forth to check docs, notes, or response sheets drains hours every week.
+        </div>
+      </div>
+      <div class="card-visual">
+        <div class="floating-window-demo">
+          <div class="f-header">
+            <span>Dock. / Canned Responses</span>
+            <span>⊞ [−] [×]</span>
+          </div>
+          <div class="f-body">
+            "Hi, thanks for reaching out. Here is the link..."
+          </div>
+        </div>
+        <div style="font-size: 11px; color: #888; text-align: center;">Floats directly on your active page. Fixed & persistent.</div>
+      </div>
+    </div>
+
+    <!-- Deck 2: Snippets -->
+    <div class="deck-card">
+      <div class="card-top">
+        <span class="card-num">02 / INSTANT SNIPPETS</span>
+        <h2 class="card-title">Type a shortcut. Expanded instantly.</h2>
+        <div class="card-problem">
+          <strong>The Problem</strong>
+          Typing repetitive replies, greetings, and templates by hand in chat, docs, and CRM is tedious.
+        </div>
+      </div>
+      <div class="card-visual">
+        <div class="snippet-preview-box">
+          <div><span style="color:#888;">Input:</span> <span class="tag-highlight">op/reply</span><span class="type-cursor"></span></div>
+          <div style="color:#888; margin-top: 6px;">Output:</div>
+          <div style="color:#ffffff; font-size: 11px; background:#111; padding:6px 8px; border-radius:4px; border:1px solid #222;">
+            "Thanks for contacting Nitytec support! I've reviewed your request..."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deck 3: AI Prompt Dispatch -->
+    <div class="deck-card">
+      <div class="card-top">
+        <span class="card-num">03 / AI ACTION DISPATCH</span>
+        <h2 class="card-title">Right-click & send to any AI model.</h2>
+        <div class="card-problem">
+          <strong>The Problem</strong>
+          Manually copying text, opening ChatGPT/Claude/Gemini, and retyping prompts wastes time.
+        </div>
+      </div>
+      <div class="card-visual">
+        <div style="font-size: 11px; color: #888; margin-bottom: 6px; text-align: center;">Right-Click Selection → Dispatch</div>
+        <div class="ai-row">
+          <div class="ai-pill">ChatGPT</div>
+          <span class="ai-arrow">/</span>
+          <div class="ai-pill">Claude</div>
+          <span class="ai-arrow">/</span>
+          <div class="ai-pill">Gemini</div>
+        </div>
+        <div style="font-size: 11px; color: #aaa; text-align: center; margin-top: 6px;">Auto-fills your custom prompt & submits.</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-signature">Crafted with precision by <strong>Nitytec.</strong></span>
+    <span class="badge-pill">100% Local • Zero Tracking • Instant Execution</span>
+    <span class="badge-pill">v1.0.0</span>
+  </footer>
+
+</body>
+</html>

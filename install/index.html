@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Dock. — Getting Started</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #000000;
+      --bg-card: #0a0a0a;
+      --bg-card-hover: #0f0f0f;
+      --border: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(255, 255, 255, 0.28);
+      --text: #ffffff;
+      --text-dim: #a3a3a3;
+      --text-muted: #666666;
+      --font-serif: 'Bodoni Moda', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Header ────────────────────────────────────────────────────────────── */
+    header {
+      height: 56px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    .header-sub {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-dim);
+    }
+
+    /* ─── 2x2 Grid Container (No Vertical Scroll) ──────────────────────────── */
+    .grid-container {
+      flex: 1;
+      padding: 20px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px;
+      overflow: hidden;
+    }
+
+    .grid-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: center;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .grid-card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+    }
+
+    /* Text Block */
+    .card-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .step-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      width: fit-content;
+      letter-spacing: 0.5px;
+    }
+
+    .card-heading {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      line-height: 1.45;
+    }
+
+    .card-example {
+      font-size: 11.5px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 2px solid #ffffff;
+      padding: 6px 10px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 2px;
+    }
+
+    /* Screenshot Placeholder Box */
+    .screenshot-placeholder {
+      background: #000000;
+      border: 1px dashed var(--border-strong);
+      border-radius: 8px;
+      height: 100%;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      color: var(--text-muted);
+    }
+
+    .screenshot-icon {
+      font-size: 20px;
+      opacity: 0.7;
+    }
+
+    .screenshot-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.3;
+    }
+
+    .screenshot-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none; /* Shows when src is set */
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────────────────── */
+    footer {
+      height: 44px;
+      padding: 0 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .footer-brand strong {
+      font-family: var(--font-serif);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-title">
+      <span class="logo">Dock.</span>
+      <span class="header-sub">/ Quick Setup & Feature Guide</span>
+    </div>
+    <div>
+      <span style="font-family: var(--font-mono); font-size: 11px; color: #888;">Installed Successfully</span>
+    </div>
+  </header>
+
+  <div class="grid-container">
+
+    <!-- Section 1: Pin Extension in Chrome (Screenshot Left, Text Right) -->
+    <div class="grid-card">
+      <div class="screenshot-placeholder">
+        <span class="screenshot-icon"></span>
+        <span class="screenshot-label">[ Screenshot: Pin Dock in Chrome Toolbar ]</span>
+        <img class="screenshot-img" src="" alt="Pin Extension">
+      </div>
+      <div class="card-text-block">
+        <span class="step-tag">STEP 01</span>
+        <h2 class="card-heading">Pin Dock to Toolbar</h2>
+        <p class="card-desc">Click the puzzle piece icon in Chrome's top-right toolbar and click the <strong>Pin</strong> icon next to <strong>Dock</strong> for instant 1-click access anytime.</p>
+        <div class="card-example">Tip: Use shortcut <code style="font-family:var(--font-mono);color:#fff;">Alt + Shift + D</code> for instant open.</div>
+      </div>
+    </div>
+
+    <!-- Section 2: Dock Companions (Text Left, Screenshot Right) -->
+    <div class="grid-card">
+      <div class="card-text-block">
+        <span class="step-tag">STEP 02</span>
+        <h2 class="card-heading">Dock Floating Tabs</h2>
+        <p class="card-desc">Open the Dock popup and click <strong>⊞</strong> next to any tab. The page floats right inside your active window — stay in your current tab while referencing docs, notes, or videos.</p>
+        <div class="card-example">Example: Pin canned responses while writing Gmail replies.</div>
+      </div>
+      <div class="screenshot-placeholder">
+        <span class="screenshot-icon">⊞</span>
+        <span class="screenshot-label">[ Screenshot: Floating Companion Window in Tab ]</span>
+        <img class="screenshot-img" src="" alt="Dock Companion">
+      </div>
+    </div>
+
+    <!-- Section 3: Instant Text Snippets (Screenshot Left, Text Right) -->
+    <div class="grid-card">
+      <div class="screenshot-placeholder">
+        <span class="screenshot-icon">≡</span>
+        <span class="screenshot-label">[ Screenshot: Typing do/snippet in Editor ]</span>
+        <img class="screenshot-img" src="" alt="Text Snippets">
+      </div>
+      <div class="card-text-block">
+        <span class="step-tag">STEP 03</span>
+        <h2 class="card-heading">Instant Text Snippets</h2>
+        <p class="card-desc">Save common replies or snippets under <strong>Snippets</strong>. Type <code style="font-family:var(--font-mono);color:#fff;">do/name</code> in any text field or editor — it auto-expands instantly without hitting Enter.</p>
+        <div class="card-example">Example: Type <code style="font-family:var(--font-mono);color:#fff;">do/meeting</code> → auto-expands your Google Meet link.</div>
+      </div>
+    </div>
+
+    <!-- Section 4: AI Prompt Dispatch (Text Left, Screenshot Right) -->
+    <div class="grid-card">
+      <div class="card-text-block">
+        <span class="step-tag">STEP 04</span>
+        <h2 class="card-heading">1-Click AI Prompts</h2>
+        <p class="card-desc">Highlight any text or right-click any image on any webpage -> click <strong>Dock</strong> -> choose ChatGPT, Claude, or Gemini. Dock sends your content along with your custom instructions.</p>
+        <div class="card-example">Example: Right-click article → "Ask Claude: Summarize in 3 bullets".</div>
+      </div>
+      <div class="screenshot-placeholder">
+        <span class="screenshot-icon">◉</span>
+        <span class="screenshot-label">[ Screenshot: Right-Click AI Action Dispatch ]</span>
+        <img class="screenshot-img" src="" alt="AI Prompts">
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-brand">Crafted with precision by <strong>Nitytec.</strong></span>
+    <span>100% Local • Private & Secure • Zero Cloud Dependencies</span>
+    <span style="font-family: var(--font-mono);">v1.0.0</span>
+  </footer>
+
+</body>
+</html>

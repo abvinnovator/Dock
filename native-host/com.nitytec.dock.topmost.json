@@ -1,0 +1,10 @@
+{
+  "name": "com.nitytec.dock.topmost",
+  "description": "Dock Always-On-Top Window Manager by Nitytec",
+  "path": "C:\\Users\\brahm\\OneDrive\\Desktop\\Dock\\native-host\\dock_topmost.bat",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://kekdldmplcdclhmmlcidejbjjobjbajp/",
+    "chrome-extension://pehmmodnalkfdepalkdmnhdfloojaich/"
+  ]
+}
