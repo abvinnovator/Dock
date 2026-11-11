@@ -1,4 +1,3 @@
-Yes — **now I understand the product much better.** You're not really trying to "pin tabs." You're trying to create a **multi-tab companion layer over Chrome**.
 
 The concept is essentially:
 

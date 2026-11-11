@@ -1,7 +1,7 @@
 {
   "extensionDescription": {
     "description": "Extension description",
-    "message": "Pin tabs, expand text snippets, and send selections to AI — all without switching tabs."
+    "message": "Copy from one tab into a field in another without switching tabs: right-click selected text to ship it. Also send text or images to ChatGPT, Claude or Gemini."
   },
   "extensionName": {
     "description": "Extension name",

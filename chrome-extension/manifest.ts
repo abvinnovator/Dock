@@ -3,36 +3,26 @@ import type { ManifestType } from '@extension/shared';
 
 const packageJson = JSON.parse(readFileSync('./package.json', 'utf8'));
 
+const AI_SITES = ['https://chatgpt.com/*', 'https://claude.ai/*', 'https://gemini.google.com/*'];
+
 const manifest = {
   manifest_version: 3,
   default_locale: 'en',
   name: '__MSG_extensionName__',
   version: packageJson.version,
   description: '__MSG_extensionDescription__',
-  permissions: [
-    'storage',
-    'tabs',
-    'contextMenus',
-    'sidePanel',
-    'declarativeNetRequest',
-    'declarativeNetRequestWithHostAccess',
-  ],
-  host_permissions: ['<all_urls>'],
+  permissions: ['storage', 'tabs', 'contextMenus', 'scripting', 'activeTab', 'sidePanel'],
+  // Requested per site: when the user picks a field on that site to ship text to,
+  // or sends an image from it to an AI.
+  optional_host_permissions: ['https://*/*', 'http://*/*'],
   side_panel: {
-    default_path: 'side-panel/index.html',
+    default_path: 'popup/index.html',
   },
   commands: {
-    'bring-companions-front': {
-      suggested_key: { default: 'Alt+Shift+D' },
-      description: 'Bring all Dock companions to front',
+    'ship-selection': {
+      suggested_key: { default: 'Alt+Shift+S' },
+      description: 'Ship selected text to your last-used destination',
     },
-  },
-  declarative_net_request: {
-    rule_resources: [{
-      id: 'dock_rules',
-      enabled: true,
-      path: 'rules.json',
-    }],
   },
   background: {
     service_worker: 'background.js',
@@ -53,17 +43,9 @@ const manifest = {
   },
   content_scripts: [
     {
-      matches: ['http://*/*', 'https://*/*'],
-      js: ['content/all.iife.js'],
+      matches: AI_SITES,
+      js: ['content/ai.iife.js'],
       run_at: 'document_idle',
-      all_frames: true,
-      match_about_blank: true,
-    },
-  ],
-  web_accessible_resources: [
-    {
-      resources: ['*.js', '*.css', '*.svg', '*.html', 'icon-16.png', 'icon-32.png', 'icon-48.png', 'icon-128.png'],
-      matches: ['*://*/*'],
     },
   ],
 } satisfies ManifestType;

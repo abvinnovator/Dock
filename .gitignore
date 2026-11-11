@@ -1,5 +1,6 @@
 # dependencies
 **/node_modules
+/node_modules
 
 # testing
 **/coverage
@@ -11,6 +12,7 @@
 chrome-extension/manifest.js
 chrome-extension/pre-build.tsconfig.tsbuildinfo
 tsconfig.tsbuildinfo
+Approaches.md
 
 # env
 **/.env.*

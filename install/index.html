@@ -3,11 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to Dock. — Getting Started</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Welcome to Dock</title>
   <style>
+    @font-face {
+      font-family: 'Bodoni Moda';
+      font-weight: 400 900;
+      font-display: swap;
+      src: url('./fonts/bodoni-moda-latin.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-weight: 400 700;
+      font-display: swap;
+      src: url('./fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-weight: 400 600;
+      font-display: swap;
+      src: url('./fonts/jetbrains-mono-latin.woff2') format('woff2');
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -17,21 +35,19 @@
     :root {
       --bg: #000000;
       --bg-card: #0a0a0a;
-      --bg-card-hover: #0f0f0f;
       --border: rgba(255, 255, 255, 0.12);
       --border-strong: rgba(255, 255, 255, 0.28);
       --text: #ffffff;
       --text-dim: #a3a3a3;
-      --text-muted: #666666;
+      --text-muted: #6b6b6b;
       --font-serif: 'Bodoni Moda', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+      color-scheme: dark;
     }
 
-    html, body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
+    body {
+      min-height: 100vh;
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-sans);
@@ -40,252 +56,358 @@
       flex-direction: column;
     }
 
-    /* ─── Header ────────────────────────────────────────────────────────────── */
     header {
-      height: 56px;
-      padding: 0 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      background: var(--bg);
-      flex-shrink: 0;
-    }
-
-    .brand-title {
+      padding: 20px 32px;
       display: flex;
       align-items: baseline;
-      gap: 12px;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
     }
 
     .logo {
       font-family: var(--font-serif);
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 800;
       letter-spacing: -0.5px;
       line-height: 1;
     }
 
     .header-sub {
-      font-family: var(--font-mono);
-      font-size: 11.5px;
+      font-size: 13px;
       color: var(--text-dim);
     }
 
-    /* ─── 2x2 Grid Container (No Vertical Scroll) ──────────────────────────── */
-    .grid-container {
+    main {
       flex: 1;
-      padding: 20px 32px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 18px;
-      overflow: hidden;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 32px 36px;
     }
 
-    .grid-card {
+    .hero {
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      font-size: 14.5px;
+      color: var(--text-dim);
+      max-width: 640px;
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px 20px;
+      border-radius: 12px;
+      padding: 20px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 20px;
       align-items: center;
-      overflow: hidden;
-      transition: border-color 0.2s ease;
     }
 
-    .grid-card:hover {
-      border-color: var(--border-strong);
-      background: var(--bg-card-hover);
-    }
-
-    /* Text Block */
-    .card-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      justify-content: center;
+    @media (max-width: 560px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
     }
 
     .step-tag {
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 600;
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.08);
+      letter-spacing: 0.5px;
       border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
       padding: 2px 8px;
       border-radius: 4px;
       display: inline-block;
-      width: fit-content;
-      letter-spacing: 0.5px;
+      margin-bottom: 8px;
     }
 
-    .card-heading {
+    .card h2 {
       font-family: var(--font-serif);
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.3px;
       line-height: 1.2;
+      margin-bottom: 6px;
     }
 
-    .card-desc {
-      font-size: 12.5px;
+    .card p {
+      font-size: 13px;
       color: var(--text-dim);
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
-    .card-example {
-      font-size: 11.5px;
-      color: #ffffff;
+    .example {
+      margin-top: 10px;
+      font-size: 12px;
+      border-left: 2px solid var(--text);
       background: rgba(255, 255, 255, 0.04);
-      border-left: 2px solid #ffffff;
       padding: 6px 10px;
       border-radius: 0 4px 4px 0;
-      margin-top: 2px;
     }
 
-    /* Screenshot Placeholder Box */
-    .screenshot-placeholder {
-      background: #000000;
-      border: 1px dashed var(--border-strong);
-      border-radius: 8px;
-      height: 100%;
-      min-height: 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      color: var(--text-muted);
-    }
-
-    .screenshot-icon {
-      font-size: 20px;
-      opacity: 0.7;
-    }
-
-    .screenshot-label {
+    kbd {
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--text-dim);
-      line-height: 1.3;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 0 5px;
     }
 
-    .screenshot-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none; /* Shows when src is set */
+    /* ─── Illustrations ─────────────────────────────────────────────────── */
+
+    .art {
+      height: 170px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #000000;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
     }
 
-    /* ─── Footer ────────────────────────────────────────────────────────────── */
-    footer {
-      height: 44px;
-      padding: 0 32px;
-      border-top: 1px solid var(--border);
+    .toolbar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: 11.5px;
-      color: var(--text-muted);
-      background: var(--bg);
-      flex-shrink: 0;
+      gap: 8px;
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
     }
 
-    .footer-brand strong {
+    .toolbar .url {
+      flex: 1;
+      height: 14px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .toolbar .ext {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--font-serif);
-      color: #ffffff;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .toolbar .ext.dock {
+      background: var(--text);
+      color: #000000;
+    }
+
+    .menu {
+      align-self: flex-end;
+      width: 70%;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .menu div {
+      padding: 5px 9px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu div:last-child {
+      border-bottom: none;
+    }
+
+    .menu .hl {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .screen {
+      flex: 1;
+      display: flex;
+      gap: 5px;
+    }
+
+    .screen .main {
+      flex: 1;
+      border: 1px dashed var(--border-strong);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screen .side {
+      width: 32%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .screen .slot {
+      flex: 1;
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+    }
+
+    .selection {
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .selection mark {
+      background: rgba(255, 255, 255, 0.85);
+      color: #000000;
+      padding: 0 2px;
+    }
+
+    footer {
+      padding: 14px 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    footer strong {
+      font-family: var(--font-serif);
+      color: var(--text);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="brand-title">
-      <span class="logo">Dock.</span>
-      <span class="header-sub">/ Quick Setup & Feature Guide</span>
-    </div>
-    <div>
-      <span style="font-family: var(--font-mono); font-size: 11px; color: #888;">Installed Successfully</span>
-    </div>
+    <span class="logo">Dock.</span>
+    <span class="header-sub">Installed — here’s how to get going in a minute</span>
   </header>
 
-  <div class="grid-container">
+  <main>
+    <section class="hero">
+      <h1>Copy here. Land there. Never switch tabs.</h1>
+      <p>Show Dock a field on another page once — a form, your notes, a CRM. After that, every bit of text you
+        select ships straight into it with one right-click. Everything stays on this device.</p>
+    </section>
 
-    <!-- Section 1: Pin Extension in Chrome (Screenshot Left, Text Right) -->
-    <div class="grid-card">
-      <div class="screenshot-placeholder">
-        <span class="screenshot-icon"></span>
-        <span class="screenshot-label">[ Screenshot: Pin Dock in Chrome Toolbar ]</span>
-        <img class="screenshot-img" src="" alt="Pin Extension">
+    <div class="grid">
+
+      <div class="card">
+        <div>
+          <span class="step-tag">STEP 01</span>
+          <h2>Pin Dock to the toolbar</h2>
+          <p>Click the puzzle-piece icon at the top right of Chrome, then the pin next to <strong>Dock</strong>, so it’s
+            always one click away.</p>
+        </div>
+        <div class="art" aria-hidden="true">
+          <div class="toolbar">
+            <div class="url"></div>
+            <div class="ext">⧉</div>
+            <div class="ext dock">D</div>
+          </div>
+          <div class="menu">
+            <div>Extensions</div>
+            <div class="hl">Dock &nbsp;·&nbsp; pin ✓</div>
+          </div>
+        </div>
       </div>
-      <div class="card-text-block">
-        <span class="step-tag">STEP 01</span>
-        <h2 class="card-heading">Pin Dock to Toolbar</h2>
-        <p class="card-desc">Click the puzzle piece icon in Chrome's top-right toolbar and click the <strong>Pin</strong> icon next to <strong>Dock</strong> for instant 1-click access anytime.</p>
-        <div class="card-example">Tip: Use shortcut <code style="font-family:var(--font-mono);color:#fff;">Alt + Shift + D</code> for instant open.</div>
+
+      <div class="card">
+        <div>
+          <span class="step-tag">STEP 02</span>
+          <h2>Show Dock the field, once</h2>
+          <p>Select text → right-click → <strong>Dock</strong> → <strong>Ship to a field in another tab…</strong> Pick
+            the tab, click the field and name it, say “SO ID”. Dock pastes it and brings you right back.</p>
+          <div class="example">Spreadsheet? Choose <strong>Just collect</strong>, then paste everything as a column later.</div>
+        </div>
+        <div class="art" aria-hidden="true">
+          <div class="selection">Internal opening · <mark>SO-48213</mark> · Data Engineer</div>
+          <div class="menu">
+            <div>Copy</div>
+            <div class="hl">Dock ▸ Ship to a field in another tab…</div>
+          </div>
+        </div>
       </div>
+
+      <div class="card">
+        <div>
+          <span class="step-tag">STEP 03</span>
+          <h2>Then it’s one right-click</h2>
+          <p>Every next selection: right-click → <strong>Dock → Ship to “SO ID”</strong>. It lands in that field, on its
+            own line, while you keep reading. Everything shipped is logged in the Manifest.</p>
+          <div class="example">Even faster: select and press <kbd>Alt+Shift+S</kbd></div>
+        </div>
+        <div class="art" aria-hidden="true">
+          <div class="screen">
+            <div class="main">Jobs portal</div>
+            <div class="side">
+              <div class="slot">SO-48213</div>
+              <div class="slot">SO-48377</div>
+              <div class="slot">SO-49020</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="step-tag">STEP 04</span>
+          <h2>Ask AI from anywhere</h2>
+          <p>Select text or right-click an image, choose <strong>Dock</strong>, then ChatGPT, Claude or Gemini. Dock
+            opens it in your own account, adds your saved instructions and sends it.</p>
+          <div class="example">No extra subscription or API key — it uses the AI account you already have.</div>
+        </div>
+        <div class="art" aria-hidden="true">
+          <div class="selection">Customer says the <mark>refund was charged twice on the
+            March invoice</mark> and wants…</div>
+          <div class="menu">
+            <div>Copy</div>
+            <div class="hl">Dock ▸ Ask Claude</div>
+            <div>Ask ChatGPT</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <!-- Section 2: Dock Companions (Text Left, Screenshot Right) -->
-    <div class="grid-card">
-      <div class="card-text-block">
-        <span class="step-tag">STEP 02</span>
-        <h2 class="card-heading">Dock Floating Tabs</h2>
-        <p class="card-desc">Open the Dock popup and click <strong>⊞</strong> next to any tab. The page floats right inside your active window — stay in your current tab while referencing docs, notes, or videos.</p>
-        <div class="card-example">Example: Pin canned responses while writing Gmail replies.</div>
-      </div>
-      <div class="screenshot-placeholder">
-        <span class="screenshot-icon">⊞</span>
-        <span class="screenshot-label">[ Screenshot: Floating Companion Window in Tab ]</span>
-        <img class="screenshot-img" src="" alt="Dock Companion">
-      </div>
-    </div>
-
-    <!-- Section 3: Instant Text Snippets (Screenshot Left, Text Right) -->
-    <div class="grid-card">
-      <div class="screenshot-placeholder">
-        <span class="screenshot-icon">≡</span>
-        <span class="screenshot-label">[ Screenshot: Typing do/snippet in Editor ]</span>
-        <img class="screenshot-img" src="" alt="Text Snippets">
-      </div>
-      <div class="card-text-block">
-        <span class="step-tag">STEP 03</span>
-        <h2 class="card-heading">Instant Text Snippets</h2>
-        <p class="card-desc">Save common replies or snippets under <strong>Snippets</strong>. Type <code style="font-family:var(--font-mono);color:#fff;">do/name</code> in any text field or editor — it auto-expands instantly without hitting Enter.</p>
-        <div class="card-example">Example: Type <code style="font-family:var(--font-mono);color:#fff;">do/meeting</code> → auto-expands your Google Meet link.</div>
-      </div>
-    </div>
-
-    <!-- Section 4: AI Prompt Dispatch (Text Left, Screenshot Right) -->
-    <div class="grid-card">
-      <div class="card-text-block">
-        <span class="step-tag">STEP 04</span>
-        <h2 class="card-heading">1-Click AI Prompts</h2>
-        <p class="card-desc">Highlight any text or right-click any image on any webpage -> click <strong>Dock</strong> -> choose ChatGPT, Claude, or Gemini. Dock sends your content along with your custom instructions.</p>
-        <div class="card-example">Example: Right-click article → "Ask Claude: Summarize in 3 bullets".</div>
-      </div>
-      <div class="screenshot-placeholder">
-        <span class="screenshot-icon">◉</span>
-        <span class="screenshot-label">[ Screenshot: Right-Click AI Action Dispatch ]</span>
-        <img class="screenshot-img" src="" alt="AI Prompts">
-      </div>
-    </div>
-
-  </div>
+  </main>
 
   <footer>
-    <span class="footer-brand">Crafted with precision by <strong>Nitytec.</strong></span>
-    <span>100% Local • Private & Secure • Zero Cloud Dependencies</span>
-    <span style="font-family: var(--font-mono);">v1.0.0</span>
+    <span><strong>Dock.</strong></span>
+    <span>100% local · no account · no tracking</span>
   </footer>
 
 </body>

@@ -1,12 +1,11 @@
-import { canSwitchTheme } from '../helpers/theme.js';
-
 describe('Webextension Popup', () => {
-  it('should open the popup successfully', async () => {
+  it('should open the popup with the Dock sections', async () => {
     const extensionPath = await browser.getExtensionPath();
-    const popupUrl = `${extensionPath}/popup/index.html`;
-    await browser.url(popupUrl);
+    await browser.url(`${extensionPath}/popup/index.html`);
 
-    await expect(browser).toHaveTitle('Popup');
-    await canSwitchTheme();
+    await expect(browser).toHaveTitle('Dock');
+    await expect($('#tab-ship')).toBeExisting();
+    await expect($('#tab-manifest')).toBeExisting();
+    await expect($('#tab-ai')).toBeExisting();
   });
 });

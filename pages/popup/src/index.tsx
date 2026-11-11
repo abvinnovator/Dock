@@ -7,8 +7,13 @@ const init = () => {
   if (!appContainer) {
     throw new Error('Can not find #app-container');
   }
-  const root = createRoot(appContainer);
 
+  // The same page serves the toolbar popup (fixed size), the side panel and a
+  // full tab (fluid); CSS keys off this attribute.
+  const isToolbarPopup = chrome.extension.getViews({ type: 'popup' }).includes(window);
+  document.documentElement.dataset.surface = isToolbarPopup ? 'popup' : 'page';
+
+  const root = createRoot(appContainer);
   root.render(<Popup />);
 };
 
